@@ -1,0 +1,15 @@
+header{
+    width: 100%;
+    height: 130px;
+}
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+textarea{
+    width: 343px;
+    height: 96px;
+}
+
