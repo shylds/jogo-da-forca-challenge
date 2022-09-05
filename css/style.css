@@ -19,7 +19,7 @@ main{
     width: 100%;
 }
 
-.main-display, .words-display{
+.words-display, .forca-display{
     display: none;
 }
 

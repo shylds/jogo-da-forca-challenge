@@ -15,8 +15,8 @@
     <main>
         <div class="main-display">
             <section class="start-game">
-                <button class="begin-button">Começar a jogar</button>
-                <button class="new-word">Adicionar nova palavra</button>
+                <button class="begin-button" onclick="enableForcaDisplay()">Começar a jogar</button>
+                <button class="new-word" onclick="enableWordsDisplay()">Adicionar nova palavra</button>
             </section>
         </div>
 
@@ -24,15 +24,15 @@
             <section class="add-word">
                 <div class="text">
                     
-                    <textarea  name="" id="" rows="6" placeholder="Digite uma palavra ou frase"></textarea>
+                    <textarea  class="word-text" name="" id="" rows="6" placeholder="Digite uma palavra ou frase"></textarea>
                 </div>
                 <div class="itens">
                     <img src="imagens/exclamacao.svg" alt="">
                     <p>Máximo de 8 letras</p>
                 </div>
                 <div class="itens-buttons">
-                    <button class="buttons-words-page">Salvar e começar</button>
-                    <button class="buttons-words-page">Cancelar</button>
+                    <button class="buttons-words-page" onclick="saveWords()">Salvar e começar</button>
+                    <button class="buttons-words-page" onclick="cancelChanges()">Cancelar</button>
                 </div>
                 
             </section>
@@ -43,11 +43,8 @@
                     <div class="forca-image">
                         <canvas width="450" height="600"></canvas>
                         
+                        <script>desenhaTabuleiro()</script>
                         <script>desenhaForca()</script>
-                        <script>desenhaTracos()</script>
-                        <script>palavraSecreta()</script>
-                        <script>desenhaLetras()</script>
-                        <script>letrasErradas()</script>
                         
                     </div>
                     <div class="forca-words">
@@ -55,8 +52,8 @@
                     </div>
                 </div>
                 <div class="forca-buttons">
-                    <button class="buttons-forca" >Novo Jogo</button>
-                    <button class="buttons-forca">Desistir</button>
+                    <button class="buttons-forca" onclick="newGame()">Novo Jogo</button>
+                    <button class="buttons-forca" onclick="exitiGame()">Desistir</button>
                 </div>
             </section>
             

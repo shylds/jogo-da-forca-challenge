@@ -1,3 +1,26 @@
+let secretsWords = ['CACHORRO', 'CELULAR', 'QUADRO', 'CARRO', 'MONITOR', 'GUITARRA', 'PANTERA', 'BRASIL'];
+
+//main-display
+function enableForcaDisplay(){
+    document.querySelector(".main-display").style.display = 'none';
+    document.querySelector(".forca-display").style.display = 'initial';
+    newGame();
+}
+
+function enableWordsDisplay(){
+    document.querySelector(".main-display").style.display = 'none';
+    document.querySelector(".words-display").style.display = 'initial';
+}   
+
+//add new word
+function saveWords(){
+    secretsWords.push(document.querySelector('.word-text').value); 
+    console.log(secretsWords[8].toUpperCase());
+}
+function cancelChanges(){
+    
+}
+
 function desenhaForca(){
     var tela = document.querySelector('canvas');
     var pincel = tela.getContext('2d');
@@ -25,7 +48,7 @@ function desenhaForca(){
         //braço esquerdo
         pincel.moveTo(250, 150);
         pincel.lineTo(220, 200);
-        pincel.stroke();
+        
 
         //perna direita
         pincel.moveTo(250, 280);
@@ -34,31 +57,49 @@ function desenhaForca(){
         //perna esquerda
         pincel.moveTo(250, 280);
         pincel.lineTo(220, 340);
-
-        //traço debaixo
-        pincel.moveTo(50, 445);
-        pincel.lineTo(300, 445);
-
-        //traço da esquerda
-        pincel.moveTo(50, 60);
-        pincel.lineTo(50, 445);
-
-        //traço de cima
-        pincel.moveTo(50, 60);
-        pincel.lineTo(250, 60);
-
-        //traço forca
-        pincel.moveTo(250, 60);
-        pincel.lineTo(250, 100);
         pincel.stroke();
+
 }
 
-function desenhaTracos(){
+//forca-display
+function newGame(){
+    //escolha da palavra secreta
+    let number;
+    while(number >= secretsWords.length || number == undefined){
+        number = Math.round(Math.random()*10);    
+    }
+
+    console.log(secretsWords[number]);
+}
+function exitGame(){
+
+}
+
+//parts of game
+function desenhaTabuleiro(){
     var tela = document.querySelector('canvas');
     var pincel = tela.getContext('2d');
 
     pincel.strokeStyle = "#0A3871";
     pincel.beginPath();
+
+    //traço debaixo
+    pincel.moveTo(50, 445);
+    pincel.lineTo(300, 445);
+
+    //traço da esquerda
+    pincel.moveTo(50, 60);
+    pincel.lineTo(50, 445);
+
+    //traço de cima
+    pincel.moveTo(50, 60);
+    pincel.lineTo(250, 60);
+
+    //traço forca
+    pincel.moveTo(250, 60);
+    pincel.lineTo(250, 100);
+    pincel.stroke();
+
     pincel.moveTo(20, 530);
     pincel.lineTo(50, 530);
     pincel.moveTo(60, 530);
@@ -126,3 +167,4 @@ function letrasErradas(){
     pincel.fillText("Y", 270, 570);
     
 }
+
