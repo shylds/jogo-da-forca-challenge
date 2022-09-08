@@ -21,45 +21,7 @@ function cancelChanges(){
     
 }
 
-function desenhaForca(){
-    var tela = document.querySelector('canvas');
-    var pincel = tela.getContext('2d');
 
-        
-        pincel.fillStyle = "#0A3871";
-        pincel.lineWidth = 5;
-        //cabeça
-        pincel.beginPath();
-        pincel.moveTo(150, 100);
-        pincel.arc(250, 120, 25, 0, 2* 3.14);
-        pincel.fill();
-
-        //tronco
-        pincel.strokeStyle = "#0A3871";
-        pincel.beginPath();
-        pincel.moveTo(250, 130)
-        pincel.lineTo(250, 280)
-        
-        //braço direito
-        pincel.moveTo(250, 150);
-        pincel.lineTo(280, 200);
-        
-
-        //braço esquerdo
-        pincel.moveTo(250, 150);
-        pincel.lineTo(220, 200);
-        
-
-        //perna direita
-        pincel.moveTo(250, 280);
-        pincel.lineTo(280, 340);
-
-        //perna esquerda
-        pincel.moveTo(250, 280);
-        pincel.lineTo(220, 340);
-        pincel.stroke();
-
-}
 
 //forca-display
 function newGame(){
@@ -76,48 +38,72 @@ function exitGame(){
 }
 
 //parts of game
-function desenhaTabuleiro(){
+
+//desenha as linhas onde aparece as letras da palavra secreta
+function linesDraw(){
+    let tela = document.querySelector('canvas');
+    let pincel = tela.getContext('2d'); 
+
+    pincel.strokeStyle = '#0A3871';
+    pincel.beginPath();
+    let lines = [20, 530];
+    for(let contador=0; contador<6; contador++){
+        pincel.moveTo(lines[0], lines[1]);
+        lines[0] = lines[0]+ 30 ;
+        pincel.lineTo(lines[0], lines[1]);
+        lines[0] = lines[0] + 10 ;
+        pincel.stroke(); 
+   }  
+}
+
+//desenha a estrutura da forca
+function forcaDraw(){
+    let tela = document.querySelector('canvas');
+    let pincel = tela.getContext('2d');
+
+    //array com as posições das linhas do canvas
+        let coordenadas = [[50, 445, 300, 445], [50, 60, 50, 445],
+        [50, 60, 250, 60], [250, 60, 250, 100]]; 
+
+    pincel.strokeStyle = '#0A3871';
+    pincel.beginPath();
+
+    for(let contador = 0; contador < coordenadas.length; contador++){
+            pincel.moveTo(coordenadas[contador][0], coordenadas[contador][1]);
+            pincel.lineTo(coordenadas[contador][2], coordenadas[contador][3]);
+            pincel.stroke();
+    }
+    linesDraw();
+}
+
+//desenha o personagem na forca 
+function characterDraw(){
     var tela = document.querySelector('canvas');
     var pincel = tela.getContext('2d');
 
-    pincel.strokeStyle = "#0A3871";
-    pincel.beginPath();
+    //cabeça, tronco, braço direito, braço esquerdo, perna direita, perna esquerda 
+    let characterBody =[[275, 120, 250, 120],[250, 130, 250, 280],
+        [250, 150, 280, 200],[250, 150, 220, 200],
+        [250, 280, 280, 340],[250, 280, 220, 340]]
+        
+        pincel.fillStyle = "#0A3871";
+        pincel.lineWidth = 5;
+        pincel.beginPath();
+        for(let count=0; count < characterBody.length; count++){
+            if(characterBody[count][0]!= 275){
+                pincel.beginPath();
+                pincel.moveTo(characterBody[count][0], characterBody[count][1]);
+                pincel.lineTo(characterBody[count][2], characterBody[count][3]);
+                pincel.stroke();  
+            }
+            else{
+                pincel.moveTo(characterBody[count][0], characterBody[count][1]);
+                pincel.arc(characterBody[count][2], characterBody[count][3], 25, 0, 2* 3.14);
+                pincel.stroke();
+           }
+        }
+}    
 
-    //traço debaixo
-    pincel.moveTo(50, 445);
-    pincel.lineTo(300, 445);
-
-    //traço da esquerda
-    pincel.moveTo(50, 60);
-    pincel.lineTo(50, 445);
-
-    //traço de cima
-    pincel.moveTo(50, 60);
-    pincel.lineTo(250, 60);
-
-    //traço forca
-    pincel.moveTo(250, 60);
-    pincel.lineTo(250, 100);
-    pincel.stroke();
-
-    pincel.moveTo(20, 530);
-    pincel.lineTo(50, 530);
-    pincel.moveTo(60, 530);
-    pincel.lineTo(90, 530);
-    pincel.moveTo(100, 530);
-    pincel.lineTo(130, 530);
-    pincel.moveTo(140, 530);
-    pincel.lineTo(170, 530);
-    pincel.moveTo(180, 530);
-    pincel.lineTo(210, 530);
-    pincel.moveTo(220, 530);
-    pincel.lineTo(250, 530);
-    pincel.moveTo(260, 530);
-    pincel.lineTo(290, 530);
-    pincel.moveTo(300, 530);
-    pincel.lineTo(330, 530);
-    pincel.stroke();   
-}
 function palavraSecreta(){
     var tela = document.querySelector('canvas');
     var pincel = tela.getContext('2d');
@@ -167,4 +153,3 @@ function letrasErradas(){
     pincel.fillText("Y", 270, 570);
     
 }
-
