@@ -1,10 +1,12 @@
 let secretsWords = ['CACHORRO', 'CELULAR', 'QUADRO', 'CARRO', 'MONITOR', 'GUITARRA', 'PANTERA', 'BRASIL'];
-
+let number;
+let secretWord;
+let wrongLetter;
 //main-display
 function enableForcaDisplay(){
     document.querySelector(".main-display").style.display = 'none';
     document.querySelector(".forca-display").style.display = 'initial';
-    newGame();
+    //newGame();
 }
 
 function enableWordsDisplay(){
@@ -21,23 +23,30 @@ function cancelChanges(){
     
 }
 
-
+let letters;
 
 //forca-display
-function newGame(){
-    //escolha da palavra secreta
-    let number;
-    while(number >= secretsWords.length || number == undefined){
-        number = Math.round(Math.random()*10);    
-    }
 
-    console.log(secretsWords[number]);
+function newGame(){
+    forcaDraw();
+    secretWord = secretWordChoice();
+    linesDraw();
+    drawSecretWord;
+    //letrasErradas();
 }
 function exitGame(){
 
 }
 
 //parts of game
+function secretWordChoice(){
+    while(number >= secretsWords.length || number == undefined){
+        number = Math.round(Math.random()*10);    
+    }
+    letters = secretsWords[number];
+    //console.log(secretsWords[number]);
+    return(secretsWords[number]);
+}
 
 //desenha as linhas onde aparece as letras da palavra secreta
 function linesDraw(){
@@ -46,14 +55,27 @@ function linesDraw(){
 
     pincel.strokeStyle = '#0A3871';
     pincel.beginPath();
-    let lines = [20, 530];
-    for(let contador=0; contador<6; contador++){
-        pincel.moveTo(lines[0], lines[1]);
-        lines[0] = lines[0]+ 30 ;
-        pincel.lineTo(lines[0], lines[1]);
-        lines[0] = lines[0] + 10 ;
-        pincel.stroke(); 
-   }  
+    
+    let spaceLength =  450/letters.length; //tamanho do traço
+    let borderLines = 10;
+    let line = 0;
+    let word = secretsWords[number];
+    for(let contador=0; contador<letters.length; contador++){
+        
+        line = Math.round( line +spaceLength);
+        pincel.moveTo(borderLines, 500);
+        pincel.lineTo(line- 20, 500);
+        pincel.stroke();
+
+        //texto
+        pincel.font = '32px inter';
+        pincel.lineWidth = 1;
+        pincel.fillText(word[contador], line-50, 495);
+
+        
+        //console.log(line);
+        borderLines = borderLines+spaceLength;
+    }  
 }
 
 //desenha a estrutura da forca
@@ -62,18 +84,17 @@ function forcaDraw(){
     let pincel = tela.getContext('2d');
 
     //array com as posições das linhas do canvas
-        let coordenadas = [[50, 445, 300, 445], [50, 60, 50, 445],
-        [50, 60, 250, 60], [250, 60, 250, 100]]; 
+        let coordenadas = [[50, 415], [50, 30],
+        [250, 30], [250, 70]]; 
 
     pincel.strokeStyle = '#0A3871';
     pincel.beginPath();
+    pincel.moveTo(300, 415);
 
     for(let contador = 0; contador < coordenadas.length; contador++){
-            pincel.moveTo(coordenadas[contador][0], coordenadas[contador][1]);
-            pincel.lineTo(coordenadas[contador][2], coordenadas[contador][3]);
+            pincel.lineTo(coordenadas[contador][0], coordenadas[contador][1]);
             pincel.stroke();
     }
-    linesDraw();
 }
 
 //desenha o personagem na forca 
@@ -104,52 +125,37 @@ function characterDraw(){
         }
 }    
 
-function palavraSecreta(){
+function drawSecretWord(){
     var tela = document.querySelector('canvas');
     var pincel = tela.getContext('2d');
 
     pincel.fillStyle = "green";
     pincel.font = '32px inter';
     pincel.lineWidth = 1;
-    pincel.fillText("", 60, 440);
-    pincel.fillText("", 90, 440);
-    pincel.fillText("F", 120, 440);
-    pincel.fillText("O", 150, 440);
-    pincel.fillText("R", 180, 440);
-    pincel.fillText("C", 210, 440);
-    pincel.fillText("A", 240, 440);
-    pincel.fillText("", 270, 440);
+
+    let x = 60;
+    for(let i=0; i< secretWord.length; i++){
+        pincel.fillText(secretWord[i], x, 400);
+        x = x + 30;
+    }
 }
 
-function desenhaLetras(){
-    var tela = document.querySelector('canvas');
-    var pincel = tela.getContext('2d');
-
-    pincel.fillStyle = "#0A3871";
-    pincel.font = '32px inter';
-    pincel.lineWidth = 1;
-    pincel.fillText("", 25, 525);
-    pincel.fillText("", 65, 525);
-    pincel.fillText("F", 105, 525);
-    pincel.fillText("O", 145, 525);
-    pincel.fillText("R", 185, 525);
-    pincel.fillText("C", 225, 525);
-    pincel.fillText("A", 265, 525);
-    pincel.fillText("", 305, 525);
-}
-
-function letrasErradas(){
+function letrasErradas(wrongLetter){
     var tela = document.querySelector('canvas');
     var pincel = tela.getContext('2d');
 
     pincel.fillStyle = "red";
     pincel.font = '32px inter';
     pincel.lineWidth = 1;
-    pincel.fillText("B", 45, 570);
-    pincel.fillText("D", 90, 570);
-    pincel.fillText("U", 135, 570);
-    pincel.fillText("Z", 180, 570);
-    pincel.fillText("W", 225, 570);
-    pincel.fillText("Y", 270, 570);
+    let x = 45;
+    //if(){
+        pincel.fillText(wrongLetter, x, 550);
+    //}
+    //pincel.fillText("B", 45, 550);
+    //pincel.fillText("D", 90, 550);
+    //pincel.fillText("U", 135, 550);
+    //pincel.fillText("Z", 180, 550);
+    //pincel.fillText("W", 225, 550);
+    //pincel.fillText("Y", 270, 550);
     
 }

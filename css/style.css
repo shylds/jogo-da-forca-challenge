@@ -106,11 +106,11 @@ main{
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 688px;
+    height: 570px;
 }
 .forca-image{
     width: 474px;
-    height: 650px;
+    height: 550px;
 }
 .forca-words{
     width: 464px;
